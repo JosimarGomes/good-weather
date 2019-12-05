@@ -76,6 +76,8 @@ function App() {
                   minTemp={weather.main.temp_min}
                   currentTemp={weather.main.temp}
                   imgId={weather.weather[0].icon}
+                  humidity={weather.main.humidity}
+                  windSpeed={weather.wind.speed}
                   />
                 <ButtonRefresh loading={loadingButton} onClick={refresh}>Atualizar</ButtonRefresh>
               </>

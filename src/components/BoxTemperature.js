@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col, Card, Statistic, Icon } from 'antd';
 import { colors, fontSizes } from '../design-system';
-export default function({ maxTemp, minTemp, currentTemp, imageId }) {
+export default function({ maxTemp, minTemp, currentTemp, imageId, humidity, windSpeed }) {
     return (
         <Row gutter={16}>
           <Col span={12}>
@@ -30,7 +30,7 @@ export default function({ maxTemp, minTemp, currentTemp, imageId }) {
             <Card>
               <Statistic
                 title="Umidade"
-                value={28}
+                value={humidity}
                 suffix="%"
                 valueStyle={{ color: colors.grey, fontSize: fontSizes.small }}
                 />
@@ -50,7 +50,7 @@ export default function({ maxTemp, minTemp, currentTemp, imageId }) {
             <Card>
               <Statistic
                 title="Vento"
-                value={8.7}
+                value={windSpeed}
                 suffix="km/h"
                 valueStyle={{ color: colors.grey, fontSize: fontSizes.small }}
                 />

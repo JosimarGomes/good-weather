@@ -8,7 +8,7 @@ class Geolocation {
     this.geolocation = geolocation;      
   }
 
-  getCurrentPosition(onChange) {
+  getCurrentPosition() {
     return new Promise((resolve) => {
       this.geolocation.getCurrentPosition(({ coords }) => resolve(coords)) 
     })

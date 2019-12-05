@@ -3,7 +3,6 @@ import './App.css';
 import axios from 'axios';
 import { Card, Icon, Typography, message } from 'antd';
 import styled from 'styled-components';
-import Geolocation from './libs/geolocation'; 
 import { colors, fontSizes } from './design-system';
 import ButtonRefresh from './components/ButtonRefresh';
 import BoxTemperature from './components/BoxTemperature';
@@ -35,13 +34,20 @@ function App() {
 
   async function requestWeather() {
 
-    const {latitude, longitude } = await Geolocation.getCurrentPosition();
-    return axios.get(`http://api.openweathermap.org/data/2.5/weather?APPID=ebd024465e138374770235a87dbab4b7&lat=${latitude}&lon=${longitude}&units=metric`)
-    .then(res => {
-      setWeather(res.data);
-      setLoading(false);
-    })
-    
+    const geolocation = navigator.geolocation;
+    if (!geolocation) {
+      throw Error('Geolocation is not supported');
+    }
+    geolocation.getCurrentPosition(({ coords }) => {
+      
+      const {latitude, longitude } = coords;
+      return axios.get(`http://api.openweathermap.org/data/2.5/weather?APPID=ebd024465e138374770235a87dbab4b7&lat=${latitude}&lon=${longitude}&units=metric`)
+      .then(res => {
+        setWeather(res.data);
+        setLoading(false);
+      })
+
+    });    
   }
 
   function refresh() {

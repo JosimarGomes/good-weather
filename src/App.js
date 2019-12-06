@@ -32,7 +32,9 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
 
-  // TO DO: request api for get wheather data and set whather state
+  /*
+  * Fazer uma requisição para api de clima com base na localização atual do usuário
+  */
 
   const cityName = weather.name;
   const title = cityName ? `Clima na cidade de ${cityName}` : "Clima na sua região";

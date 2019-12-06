@@ -32,35 +32,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
 
-  async function requestWeather() {
-
-    const geolocation = navigator.geolocation;
-    if (!geolocation) {
-      throw Error('Geolocation is not supported');
-    }
-    geolocation.getCurrentPosition(({ coords }) => {
-      
-      const {latitude, longitude } = coords;
-      return axios.get(`http://api.openweathermap.org/data/2.5/weather?APPID=ebd024465e138374770235a87dbab4b7&lat=${latitude}&lon=${longitude}&units=metric`)
-      .then(res => {
-        setWeather(res.data);
-        setLoading(false);
-      })
-
-    });    
-  }
-
-  function refresh() {
-    setLoadingButton(true);
-    requestWeather().then(() => {
-      setLoadingButton(false);
-      message.success('Atualizado com sucesso!')
-    });
-  }
-
-  useEffect(() => {
-    requestWeather();   
-  }, [])
+  // TO DO: request api for get wheather data and set whather state
 
   const cityName = weather.name;
   const title = cityName ? `Clima na cidade de ${cityName}` : "Clima na sua região";
@@ -85,7 +57,7 @@ function App() {
                   humidity={weather.main.humidity}
                   windSpeed={weather.wind.speed}
                   />
-                <ButtonRefresh loading={loadingButton} onClick={refresh}>Atualizar</ButtonRefresh>
+                <ButtonRefresh loading={loadingButton} onClick={() => false}>Atualizar</ButtonRefresh>
               </>
           }
         </Content>

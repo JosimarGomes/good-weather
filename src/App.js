@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import axios from 'axios';
 import { Card, Icon, Typography, message } from 'antd';
 import styled from 'styled-components';
-import Geolocation from './libs/geolocation'; 
+import Geolocation from './libs/geolocation';
+import WeatherApi from './apis/weatherApi';
 import { colors, fontSizes } from './design-system';
 import ButtonRefresh from './components/ButtonRefresh';
 import BoxTemperature from './components/BoxTemperature';
@@ -30,30 +30,33 @@ const Content = styled(Card)`
 function App() {
 
   const [weather, setWeather] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [loadingButton, setLoadingButton] = useState(false);
 
   async function requestWeather() {
 
-    const {latitude, longitude } = await Geolocation.getCurrentPosition();
-    return axios.get(`http://api.openweathermap.org/data/2.5/weather?APPID=ebd024465e138374770235a87dbab4b7&lat=${latitude}&lon=${longitude}&units=metric`)
-    .then(res => {
-      setWeather(res.data);
-      setLoading(false);
-    })
-    
+    const { latitude, longitude } = await Geolocation.getCurrentPosition();
+
+    return WeatherApi.getWeather({ latitude, longitude })
+      .then(res => {
+        setWeather(res.data);
+      });
   }
 
   function refresh() {
     setLoadingButton(true);
     requestWeather().then(() => {
       setLoadingButton(false);
-      message.success('Atualizado com sucesso!')
+      message.success('Atualizado com sucesso!');
     });
   }
 
   useEffect(() => {
-    requestWeather();   
+    setLoading(true);
+    requestWeather()
+      .then(() => {
+        setLoading(false);
+      })
   }, [])
 
   const cityName = weather.name;

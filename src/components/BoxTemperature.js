@@ -1,60 +1,60 @@
 import React from 'react'
-import { Row, Col, Card, Statistic, Icon } from 'antd';
+import { Row, Col } from 'antd';
 import { colors, fontSizes } from '../design-system';
-export default function({ maxTemp, minTemp, currentTemp, imageId, humidity, windSpeed }) {
+
+import CardStatistics from './CardStatistics';
+
+export default function({ maxTemp, minTemp, currentTemp, humidity, windSpeed }) {
     return (
         <Row gutter={16}>
           <Col span={12}>
-            <Card style={{minHeight: '198px'}}>
-              <Statistic
-                title="Temperatura atual"
-                value={currentTemp}
-                precision={1}
-                valueStyle={{ color: colors.primary, fontSize: fontSizes.big }}
-                suffix="°C"
-                prefix={<img src={`https://openweathermap.org/img/wn/${imageId}@2x.png`} alt=""/>}
-              />
-            </Card>
+            <CardStatistics
+              style={{minHeight: '198px'}}
+              title="Temperatura atual"
+              value={`${currentTemp} °C`}
+              valueStyle={{
+                color: colors.primary,
+                fontSize: fontSizes.big
+              }}
+            />
           </Col>
           <Col span={6}>
-            <Card>
-              <Statistic
-                title="Máxima"
-                value={maxTemp}
-                precision={1}
-                valueStyle={{ color: colors.success, fontSize: fontSizes.small }}
-                prefix={<Icon type="arrow-up" />}
-                suffix="°C"
-              />
-            </Card>
-            <Card>
-              <Statistic
-                title="Umidade"
-                value={humidity}
-                suffix="%"
-                valueStyle={{ color: colors.grey, fontSize: fontSizes.small }}
-                />
-            </Card>
+            <CardStatistics
+              title="Máxima"
+              value={`${maxTemp} °C`}
+              valueStyle={{
+                color: colors.success,
+                fontSize: fontSizes.small
+              }}
+              icon="arrow-up"
+            />
+            <CardStatistics
+              title="Umidade"
+              value={`${humidity} %`}
+              valueStyle={{
+                color: colors.grey,
+                fontSize: fontSizes.small
+              }}
+            />
           </Col>
           <Col span={6}>
-            <Card>
-              <Statistic
-                title="Mínima"
-                value={minTemp}
-                precision={1}
-                valueStyle={{ color: colors.danger, fontSize: fontSizes.small }}
-                prefix={<Icon type="arrow-down" />}
-                suffix="°C"
-              />
-            </Card>
-            <Card>
-              <Statistic
-                title="Vento"
-                value={windSpeed}
-                suffix="km/h"
-                valueStyle={{ color: colors.grey, fontSize: fontSizes.small }}
-                />
-            </Card>
+            <CardStatistics
+              title="Mínima"
+              value={`${minTemp} °C`}
+              valueStyle={{
+                color: colors.danger,
+                fontSize: fontSizes.small
+              }}
+              icon="arrow-down"
+            />
+            <CardStatistics
+              title="Vento"
+              value={`${windSpeed} km/h`}
+              valueStyle={{
+                color: colors.danger,
+                fontSize: fontSizes.small
+              }}
+            />
           </Col>
         </Row>
       )
